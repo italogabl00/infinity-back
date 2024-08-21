@@ -1,0 +1,24 @@
+{
+    "version": 2,
+    "builds": [
+      {
+        "src": "index.js",
+        "use": "@vercel/node"
+      }
+    ],
+    "routes": [
+      {
+        "src": "/api/alunos(.*)",
+        "dest": "/api/alunoRoutes$1"
+      },
+      {
+        "src": "/api/professores(.*)",
+        "dest": "/api/professoresRoutes$1"
+      },
+      {
+        "src": "/(.*)",
+        "dest": "/"
+      }
+    ]
+  }
+  

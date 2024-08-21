@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Deletar Professor</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<style>
+   body {
+        background-color: rgb(54, 50, 50);
+        color: rgba(255, 255, 255, 1);
+    }
+
+    .btn-submit {
+        background-color: rgba(28, 25, 25, 1);
+        border-color: rgba(28, 25, 25, 1);
+    }
+
+    .btn-submit:hover {
+        background-color: rgba(255, 255, 255, 1);
+        color: rgba(28, 25, 25, 1);
+    }
+
+</style>
+<body>
+    <header class="bg-gray-800 py-4">
+        <div class="container mx-auto flex justify-between items-center">
+            <!-- Logo -->
+            <h1 class="text-white text-2xl font-bold">Aplicação pro banco</h1>
+            <!-- Link para a página de atualização -->
+            <div class="flex flex-col">
+                <a href="/listaProfessores.html" class="text-white hover:text-gray-300">Lista professores</a>
+                <a href="/professores.html" class="text-white hover:text-gray-300">Cadastrar Professor</a>
+                <a href="/deletarProfessores.html" class="text-white hover:text-gray-300">DELETAR professor</a>
+            </div>
+        </div>
+    </header>
+  <div class="container mx-auto mt-8 max-w-2xl">
+    <div class="max-w-md mx-auto p-6 rounded-md bg-gray-900">
+        <form action="/professores/delete" method="post">
+            <h2 class="text-2xl font-semibold mb-6">Excluir Professor</h2>
+            <div class="mb-4">
+                <label class="block mb-1" for="Id">ID do Professor:</label>
+                <input type="text" class="w-full py-2 px-4 rounded-md text-black" name="id" placeholder="Digite o ID do professor a ser excluído">
+            </div>
+            <button type="submit" class="btn-submit py-2 px-4 rounded-md text-white">Excluir</button>
+        </form>
+    </div>
+  </div>
+</body>
+</html>

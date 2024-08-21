@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro do Aluno</title>
+    <!-- Include Tailwind CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<style>
+    body {
+        background-color: rgb(187, 116, 116);
+        color: rgba(255, 255, 255, 1);
+    }
+
+    .btn-submit {
+        background-color: rgba(28, 25, 25, 1);
+        border-color: rgba(28, 25, 25, 1);
+    }
+
+    .btn-submit:hover {
+        background-color: rgba(255, 255, 255, 1);
+        color: rgba(28, 25, 25, 1);
+    }
+
+    summary {
+        cursor: pointer;
+    }
+
+    summary:focus {
+        outline: none;
+    }
+
+    details[open] summary::marker {
+        content: "▼";
+    }
+
+    details summary::marker {
+        content: "▶";
+    }
+
+    .module-checkbox {
+        display: none;
+    }
+
+    details[open] .module-checkbox {
+        display: block;
+    }
+
+</style>
+<body>
+
+<!-- Header -->
+<header class="bg-red-800 py-4">
+        <div class="container mx-auto flex justify-between items-center">
+            <!-- Logo -->
+            <h1 class="text-white text-2xl font-bold">Aplicação pro banco</h1>
+            <!-- Link para a página de atualização -->
+            <div class="flex flex-col">
+
+                <a href="/lista.html" class="text-white hover:text-gray-300">Lista Aluno</a>
+                <a href="/professores.html" class="text-white hover:text-gray-300">Cadastrar professor</a>
+                
+            </div>
+        </div>
+    
+        </div>
+    </div>
+</header>
+
+<!-- Conteúdo da Página -->
+<div class="container mx-auto mt-8 max-w-2xl">
+    <div class="max-w-md mx-auto p-6 rounded-md bg-red-900">
+        <form action="/alunos/add" method="post">
+            <h2 class="text-2xl font-semibold mb-6">Gerador de token para certificado</h2>
+            <div class="mb-4">
+                <label class="block mb-1" for="Nome">Nome:</label>
+                <input type="text" class="w-full py-2 px-4 rounded-md text-black" name="NOME" placeholder="Digite o nome do aluno">
+            </div>
+            <div class="mb-4">
+                <label class="block mb-1" for="Cpf">CPF:</label>
+                <input type="text" class="w-full py-2 px-4 rounded-md text-black" name="CPF" placeholder="Digite o CPF do aluno" maxlength="11">
+            </div>
+            <div class="mb-4 flex ">
+                <label class="block mb-1" for="Curso">Curso:</label>
+                <div class="flex flex-wrap flex-row">
+                    <details class="collapse w-1/2 mb-2" id="curso_dev">
+                        <summary class="summary_title" value="dev">Programação Full-Stack</summary>
+                        <div class="flex flex-wrap module-checkbox" id="modulo_container_dev">
+                            <!-- Módulos serão adicionados dinamicamente aqui -->
+                        </div>
+                    </details>
+                    
+                    <details class="collapse w-1/2 mb-2" id="curso_marketing">
+                        <summary class="summary_title" value="marketing">Marketing</summary>
+                        <div class="flex flex-wrap module-checkbox" id="modulo_container_marketing">
+                            <!-- Módulos serão adicionados dinamicamente aqui -->
+                        </div>
+                    </details>
+                    <details class="collapse w-1/2 mb-2" id="curso_data_science">
+                        <summary class="summary_title" value="data_science">Data Science</summary>
+                        <div class="flex flex-wrap module-checkbox" id="modulo_container_data_science">
+                            <!-- Módulos serão adicionados dinamicamente aqui -->
+                        </div>
+                    </details>
+                    <details class="collapse w-1/2 mb-2" id="curso_fotografia">
+                        <summary class="summary_title" value="fotografia">Fotografia</summary>
+                        <div class="flex flex-wrap module-checkbox" id="modulo_container_fotografia">
+                            <!-- Módulos serão adicionados dinamicamente aqui -->
+                        </div>
+                    </details>
+                </div>
+            </div>
+            <div class="mb-4">
+                <label class="block mb-1" for="Turma">Turma:</label>
+                <input type="text" class="w-full py-2 px-4 rounded-md text-black" name="TURMA" placeholder="Digite a turma do aluno">
+            </div>
+            <div class="mb-4">
+                <label class="block mb-1" for="Ano">Data da Formatura:</label>
+                <input type="date" class="w-full py-2 px-4 rounded-md text-black" name="DATA">
+            </div>
+            <button type="submit" class="btn-submit py-2 px-4 rounded-md text-white">Cadastrar</button>
+        </form>
+    </div>
+</div>
+
+<script>
+    // Função para atualizar os módulos com base no curso selecionado
+    function atualizarModulos(curso) {
+        const moduloContainer = document.getElementById(`modulo_container_${curso}`);
+        moduloContainer.innerHTML = ""; // Limpar conteúdo existente
+
+        // Mapa de módulos para cada curso
+        const modulosPorCurso = {
+            dev: ["Lógica de Programação", "Python", "Lógica de Programação com IA", "Python com IA", "HTML5", "JavaScript"],
+            marketing: ["Marketing 101", "Estratégias de Marketing Digital", "Análise de Dados de Marketing"],
+            data_science: ["Introdução à Ciência de Dados", "Machine Learning", "Deep Learning", "Big Data Analytics"],
+            fotografia: ["Introdução à Fotografia", "Técnicas Avançadas de Fotografia", "Edição de Imagem"]
+        };
+
+        // Adicionar os módulos correspondentes ao curso selecionado
+        modulosPorCurso[curso].forEach(modulo => {
+            const checkbox = document.createElement("input");
+            checkbox.type = "checkbox";
+            checkbox.name = "MODULO";
+            checkbox.value = modulo.replace(/\s+/g, "-"); // substituir espaços por hífens
+            checkbox.id = modulo.replace(/\s+/g, "_").toLowerCase(); // IDs não devem conter espaços
+
+            const label = document.createElement("label");
+            label.textContent = modulo;
+            label.setAttribute("for", checkbox.id);
+
+            const div = document.createElement("div");
+            div.className = "w-1/2 mb-2";
+            div.appendChild(checkbox);
+            div.appendChild(label);
+
+            moduloContainer.appendChild(div);
+        });
+    }
+
+    // Adicionar evento de mudança para os botões de opção de curso
+    const cursoRadios = document.querySelectorAll('details');
+    cursoRadios.forEach(cursoRadio => {
+        cursoRadio.addEventListener("toggle", () => {
+            const curso = cursoRadio.querySelector('summary').getAttribute('value');
+            atualizarModulos(curso);
+        });
+    });
+</script>
+
+</body>
+</html>
+
+
